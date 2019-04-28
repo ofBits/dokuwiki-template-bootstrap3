@@ -838,6 +838,23 @@ function bootstrap3_toolbar() {
  */
 function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
 
+    // Replacing the gravatar function to pull local user images only
+/*
+    $interwiki = getInterwiki();
+    $user_url  = str_replace('{NAME}', $_SERVER['REMOTE_USER'], $interwiki['user']);
+
+    $formats = array('.png.', '.jpg', '.gif');
+    foreach ($formats as $format) {
+        $user_img = mediaFN($user_url.$format);
+        if(@file_exists($user_img)) {
+            return $user_url.$format;
+        }
+    }
+
+    $default  = str_replace('{NAME}', 'default', $interwiki['user']);
+    return $default.'.jpg';
+*/
+
   $url = 'https://gravatar.com/avatar/';
   $url .= md5( strtolower( trim( $email ) ) );
   $url .= "?s=$s&d=$d&r=$r";
@@ -850,6 +867,7 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
   }
 
   return $url;
+
 
 }
 
@@ -1454,6 +1472,7 @@ function bootstrap3_pageinfo($ret = false) {
           $user_data = $auth->getUserData($INFO['editor']);
 
           $gravatar_img = ml(get_gravatar($user_data['mail'], 16).'&.jpg', array('cache' => 'recache', 'w' => 16, 'h' => 16));
+          //$gravatar_img = ml(get_gravatar($user_data['mail'], 16), array('cache' => 'recache', 'w' => 16, 'h' => 16));
 
           $user_img = sprintf('<img src="%s" alt="" width="16" height="16" class="img-rounded" /> ', $gravatar_img);
           $user     = str_replace(array('iw_user', 'interwiki'), '', $user);
@@ -1750,8 +1769,8 @@ function bootstrap3_content($content) {
 
   // Revisions & Recents
   if ($ACT == 'revisions' || $ACT == 'recent') {
-    $search  = array('class="sizechange positive"', 'class="sizechange negative"', 'class="minor"');
-    $replace = array('class="sizechange positive label label-success"', 'class="sizechange negative label label-danger"', 'class="minor text-muted"');
+    $search  = array('class="sizechange positive"', 'class="sizechange negative"', 'class="sizechange"', 'class="minor"');
+    $replace = array('class="sizechange positive label label-success"', 'class="sizechange negative label label-danger"', 'class="sizechange label label-default"', 'class="minor text-muted"');
     $content = str_replace($search, $replace, $content);
   }
 

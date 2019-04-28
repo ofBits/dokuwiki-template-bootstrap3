@@ -17,6 +17,8 @@ $use_gravatar = bootstrap3_conf('useGravatar');
 if ($use_gravatar) {
   $gravatar_img_small = ml(get_gravatar($INFO['userinfo']['mail'], 30).'&.jpg', array('cache' => 'recache', 'w' => 30, 'h' => 30));
   $gravatar_img       = ml(get_gravatar($INFO['userinfo']['mail'], 64).'&.jpg', array('cache' => 'recache', 'w' => 64, 'h' => 64));
+  //$gravatar_img_small = ml(get_gravatar($INFO['userinfo']['mail'], 30), array('cache' => 'recache', 'w' => 30, 'h' => 30));
+  //$gravatar_img       = ml(get_gravatar($INFO['userinfo']['mail'], 64), array('cache' => 'recache', 'w' => 64, 'h' => 64));
 }
 
 ?>
